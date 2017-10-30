@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <h2 align="center" class="page-header">SignUp...!!!</h2>
+        <form [formGroup]="form" (ngSubmit)="onAddUser()">
+
+
+          <label for="first_name">First Name</label>
+          <div class="form-group">
+            <input type="text" placeholder="First Name*" formControlName="first_name" class="form-control">
+            <span *ngIf="!form.get('first_name').valid && form.get('first_name').touched">
+              <span *ngIf="form.get('first_name').errors['accessError']">
+                <b style="color: red;">This User is not allowed</b>
+              </span>
+              <span *ngIf="form.get('first_name').errors['required']">
+                <b style="color: red;">Please enter First NaME</b>
+              </span>
+            </span>
+          </div>
+
+          <label for="last_name">LastName</label>
+          <div class="form-group">
+            <input type="text" placeholder="Last Name*" formControlName="last_name" class="form-control">
+            <span *ngIf="!form.get('last_name').valid && form.get('last_name').touched">
+              <b style="color: blue;">Please fill Lastname</b>
+            </span>
+          </div>
+
+          <label for="email">Email</label>
+          <div class="form-group">
+            <input type="email" placeholder="Email*" formControlName="email" class="form-control">
+            <span *ngIf="!form.get('email').valid && form.get('email').touched">
+              <b style="color : red">Please enter valid email</b>
+            </span>
+          </div>
+
+          <label for="password">Password</label>
+          <div class="form-group">
+            <input type="password" placeholder="Password*" formControlName="password" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+              title="Password Must be in UpperCase, LowerCase, Number, SpecialChar and min 8 Characters">
+            <span *ngIf="!form.get('password').valid && form.get('password').touched">
+              <b style="color : red">Please enter valid Password</b>
+            </span>
+          </div>
+
+          <label for="cpassword">Confirm Password</label>
+          <div class="form-group">
+            <input type="password" placeholder="Confirm Password*" formControlName="cpassword" class="form-control">
+            <span *ngIf="!(form.get('cpassword').value == form.get('password').value)">
+              <b style="color : red">Mismatch the Password</b>
+            </span>
+          </div>
+
+          <label for="birth">Birth Date</label>
+          <div class="form-group">
+            <input type="date" max="2017-05-31" formControlName="birth" class="form-control">
+          </div>
+
+          <label for="purchase_date">Flat Purchase Date</label>
+          <div class="form-group">
+            <input type="date" min="2017-11-01" formControlName="purchase_date" class="form-control">
+          </div>
+
+           <label for="profile_pic">Profile Picture</label>
+          <div class="form-group">
+            <input type="file" accept="image/x-png,image/gif,image/jpeg" ng2FileSelect [uploader]="uploader" (change)="uploader.uploadAll()" formControlName="profile_pic" class="form-control">
+        </div> 
+
+
+          <div class="form-group">
+            <input type="checkbox" formControlName="checkbox">Accept Torms & conditions.
+            <span *ngIf="!(form.get('checkbox').value == true)">
+              <b style="color : red">Please checked the Terms and Condition</b>
+            </span>
+          </div>
+
+          <label for="flat_block">Flat Block</label>
+          <div class="form-group">
+            <select class="form-control" formControlName="flat_block">
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+              <option>D</option>
+              <option>E</option>
+              <option>F</option>
+            </select>
+            <span *ngIf="!form.get('flat_block').valid && form.get('flat_block').touched">
+              <b style="color : red">Please insert proper Flat Block</b>
+            </span>
+          </div>
+
+          <label for="flat_no">Flat Number</label>
+          <div class="form-group">
+            <select class="form-control" formControlName="flat_no">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+            <span *ngIf="!form.get('flat_no').valid && form.get('flat_no').touched">
+              <b style="color : red">Please insert proper Flat Number</b>
+            </span>
+          </div>
+
+          <label for="mobile">Mobile</label>
+          <div class="form-group">
+            <input type="text" (keypress)="keyPress($event)" placeholder="Mobile No*" formControlName="mobile" class="form-control">
+            <span *ngIf="!form.get('mobile').valid && form.get('mobile').touched">
+              <span *ngIf="form.get('mobile').errors['required']">
+                <b style="color: red;">Please enter Mobile number.</b>
+              </span>
+              <span *ngIf="!form.get('mobile').minLength">
+                <b style="color : red">Mobile number must be in 12</b>
+              </span>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="SignUP">
+          </div>
+        </form>
+        <a routerLink="/">Already Registered ?</a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
