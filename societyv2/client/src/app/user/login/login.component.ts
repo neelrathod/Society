@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { SignupService } from '../../services/signup.service';
+import { UserService } from '../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -11,8 +11,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginform: FormGroup;
+  userToken;
 
-  constructor(private service:SignupService, private router : Router, private route:ActivatedRoute) { }
+  constructor(private service: UserService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.loginform = new FormGroup({
@@ -22,11 +23,33 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  onLogin(){
-    this.service.login(this.loginform.value).subscribe((res)=>{
-      console.log(res);
+
+
+  onLogin() {
+    this.service.login(this.loginform.value).subscribe((res) => {
+      var userid = res.json().data._id;
+      // var emailToken = res.json().data.emailToken;
+      var adminAccess = res.json().data.adminAccess;
+      console.log(adminAccess);
+      // console.log(emailToken);
+      console.log(userid)
+      // window.localStorage.setItem('emailToken', emailToken);
+      window.localStorage.setItem('user_id',userid);
+      window.localStorage.setItem('adminAccess', adminAccess);
+      this.service.getUserid(res.json().data._id);
+      this.userToken=res.json().data.emailToken;
+      if (res.status == 200) {
+        this.setAccessToken(); 
+        
+        this.router.navigate(['/header'], { relativeTo: this.route })
+      } else {
+        this.router.navigate(['/'], { relativeTo: this.route })
+      }
     });
 
-    this.router.navigate(['/header'], { relativeTo: this.route})
+
+  }
+  setAccessToken(){
+    window.localStorage.setItem('accesstoken', this.userToken)
   }
 }

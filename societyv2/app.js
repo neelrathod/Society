@@ -1,8 +1,14 @@
-var express = require("express"),
-    bodyParser = require("body-parser"),
-    mongoose = require("mongoose"),
-    cors = require("cors"),
-    path = require("path")
+var express = require('express'),
+    bodyParser = require('body-parser'),
+    mongoose = require('mongoose'),
+    cors = require('cors'),
+    path = require('path'),
+    multer = require('multer'),
+    DIR = './uploads/',
+    upload = multer({dest: DIR}).single('photo')
+
+
+    
 
 var app = express();
 

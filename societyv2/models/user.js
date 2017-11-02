@@ -1,54 +1,71 @@
 var mongoose = require("mongoose");
 
 
-const userSchema = new mongoose.Schema({
-    first_name : {
+
+
+//UserSchema
+var userSchema = new mongoose.Schema({
+    first_name: {
         type: String
-        
+
     },
-    last_name : {
+    last_name: {
         type: String
-        
+
     },
-    email : {
+    email: {
         type: String
-        
+
     },
-    password : {
+    password: {
         type: String
-        
+
     },
-    birth : {
+    birth: {
+        type: Date
+
+    },
+    purchase_date: {
+        type: Date
+
+    },
+    profile_pic: {
         type: String
-        
+
     },
-    purchase_date : {
+    flat_block: {
         type: String
-        
+
     },
-    profile_pic : {
-        type: String
-        
-    },
-    flat_block : {
-        type: String
-        
-    },
-    flat_no : {
+    flat_no: {
         type: Number
-        
+
     },
-    mobile : {
+    mobile: {
         type: Number
-        
+
     },
-    adminAccess : {
-        type : Number,
-        default : 0
+    adminAccess: {
+        type: Number,
+        default: 0
     },
-    emailToken :{
-        type : String
-    }
+    emailToken: {
+        type: String
+    },
+    maintenance: [{
+        isPaid: {
+            type: Boolean
+        },
+        month: {
+            type: Number
+        },
+        year: {
+            type: Number
+        },
+        pay: {
+            type: Number
+        }
+    }]
 });
 
 
