@@ -63,6 +63,7 @@ export class SignupComponent implements OnInit {
 
     this.signupService.addUser(formData).subscribe((res) => {
       console.log(res);
+      alert("Signup Successfully")
     })
 
     this.router.navigate(['/'], { relativeTo: this.route });

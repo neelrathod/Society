@@ -30,7 +30,7 @@
 
           <label for="reg">Registration Number</label>
           <div class="form-group">
-            <input type="text" placeholder="Registration Number*" (keypress)="keyPress($event)" formControlName="reg" class="form-control">
+            <input type="text" placeholder="GJ-27-7879 " formControlName="reg" class="form-control">
             <span *ngIf="!addvehicleForm.get('reg').valid && addvehicleForm.get('reg').touched">
               <b style="color : red">Please enter vehicle Registration number</b>
             </span>
@@ -55,7 +55,7 @@
           </div>
 
           <div class="form-group">
-            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Add">
+            <input class="btn btn-primary btn-lg btn-block" [disabled]="!addvehicleForm.valid" type="submit" value="Add">
           </div>
 
 

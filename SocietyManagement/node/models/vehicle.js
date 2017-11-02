@@ -9,7 +9,7 @@ var vehicleSchema = new mongoose.Schema({
     },
 
     reg: {
-        type: Number
+        type: String
     },
 
     pic: {

@@ -37,7 +37,6 @@ export class AddComponent implements OnInit {
 
 
     this.vService.addVehicle(formData).subscribe((response) => {
-      // console.log(response.json().data)
       this.addvehicleForm.reset()
       alert("Vehicle added Successfully")
     }), (error) => {
@@ -47,15 +46,6 @@ export class AddComponent implements OnInit {
 
   uploadvehicle(vehicleimg) {
     this.file = vehicleimg.srcElement.files.item(0);
-  }
-
-  keyPress(event: any) {
-    const pattern = /[0-9\+\-\ ]/;
-
-    let inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
   }
 
 }
