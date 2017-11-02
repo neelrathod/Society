@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <h1 align="center" style="color : skyblue" class="page-header">LogIn..!!</h1>
+      <form [formGroup]="loginform" (ngSubmit)="onLogin()">
+        <label for="email">Email</label>
+        <div class="form-group">
+          <input type="email" placeholder="Email..." formControlName="email" class="form-control">
+          <span *ngIf="!loginform.get('email').valid && loginform.get('email').touched">
+            <b style="color: red;">Please enter correct Email</b>
+          </span>
+        </div>
+
+        <label for="password">Password</label>
+        <div class="form-group">
+          <input type="password" placeholder="Password..." formControlName="password" class="form-control">
+          <span *ngIf="!loginform.get('password').valid && loginform.get('password').touched">
+            <b style="color: red;">Please enter the Password</b>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <input class="btn btn-primary btn-lg btn-block" [disabled]="!loginform.valid" type="submit" value="Login">
+        </div>
+      </form>
+
+      <a routerLink="/signup">Don't have account SignUp here</a>
+      <div>
+        <a routerLink="">Forget Password ?</a>
+      </div>
+
+    </div>
+  </div>
+</div>
