@@ -18,10 +18,7 @@ export class AdminService {
   getUnpaid(unpaidUsers: any) {
     console.log(this.headers);
     return this.http.post("http://localhost:4000/api/admin", unpaidUsers, { headers: this.headers })
-
   }
-
-
 
   getpaid(paidUsers: any) {
     return this.http.post("http://localhost:4000/api/admin/paid", paidUsers, { headers: this.headers });

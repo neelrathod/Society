@@ -2,7 +2,9 @@ var express = require("express");
 var router = express.Router();
 var User = require("../models/user");
 var Vehicle = require("../models/vehicle")
+var Feed = require("../models/feed")
 var jwt = require('jsonwebtoken');
+var md5 = require('md5');
 
 var multer = require('multer');
 var DIR = './uploads/';
@@ -46,7 +48,7 @@ router.post("/signup", function (req, res) {
             var first_name = forms.first_name;
             var last_name = forms.last_name;
             var email = forms.email;
-            var password = forms.password;
+            var password = md5(forms.password);
             var birth = forms.birth;
             var purchase_date = forms.purchase_date;
             var profile_pic = path;
@@ -94,7 +96,7 @@ router.post("/signup", function (req, res) {
 //Login
 router.post("/login", function (req, res, next) {
     var email = req.body.email;
-    var password = req.body.password;
+    var password = md5(req.body.password);
 
     User.findOne({ email }, function (err, users) {
         if (err) {
@@ -212,12 +214,6 @@ router.post("/vehicle", isLoggedIn, function (req, res, next) {
 
 });
 
-
-
-
-
-
-
 //My Vehicles
 router.get("/vehicle/:id", isLoggedIn, function (req, res, next) {
 
@@ -230,12 +226,32 @@ router.get("/vehicle/:id", isLoggedIn, function (req, res, next) {
     })
 })
 
-//Edit My Vehicle
-router.put("/vehicle/edit", isLoggedIn, function (req, res) {
 
-    vehicleID = req.body._id
+// My edit vehicle Info
+router.get("/vehicle/editdata/:id", isLoggedIn, function(req,res){
+    vehicleID = req.params.id
+    console.log("This is a vid" + vehicleID)
+
+     Vehicle.find({ _id: vehicleID}, function (err, vehicle) {
+         if (err) {
+             res.json({ msg: "Errors in vehicles" }, 400)
+         } else {
+            console.log(vehicle) 
+            // res.json(vehicle)
+            
+            res.send({ vehicle: vehicle });
+             
+         }
+     })    
+ })
+
+//Edit My Vehicle
+router.put("/vehicle/edit/:id", isLoggedIn, function (req, res, next) {
+
+    vehicleID = req.params.id
     if (!vehicleID) {
-        res.json({ msg: "Error in vehicles update" }, 400)
+   console.log("Error in vehicles update")
+        // res.json({ msg: "Error in vehicles update" }, 400)
     }
     var type = req.body.type;
     var reg = req.body.reg;
@@ -247,9 +263,9 @@ router.put("/vehicle/edit", isLoggedIn, function (req, res) {
         pic: pic,
         color: color
     }
-    // console.log(newVehicle)
-    console.log(vehicleID)
-    Vehicle.update({ _id: vehicleID }, newVehicle, function (err, foundvehicle) {
+    
+    
+    Vehicle.findByIdAndUpdate({ _id: vehicleID }, newVehicle, function (err, foundvehicle) {
         if (err) {
             console.log(err);
             res.json({ msg: "Errors in vehicles" }, 400)
@@ -263,18 +279,58 @@ router.put("/vehicle/edit", isLoggedIn, function (req, res) {
 
 
 
-
-
 //Delete My Vehicle
 router.delete("/vehicle/:id", isLoggedIn, function (req, res, next) {
     Vehicle.remove({ _id: req.params.id }, function (err, result) {
         if (err) {
             res.json(err);
         } else {
-            res.json(result).data
+            res.json(result)
         }
     });
 });
+
+
+////////////////////////////////////////////////////////////
+
+//                 Feed Route
+
+////////////////////////////////////////////////////////////
+router.post("/addFeed", isLoggedIn, function(req, res){
+   var userId = req.body.userId;
+    var feed = req.body.feed;
+    var feedImg= req.body.feedImg
+
+   var newFeed = {
+        userId: userId,
+        feed:feed,
+        feedImg:feedImg
+    }
+
+    
+    Feed.create(newFeed, function (err, feed) {
+        if (err) {
+            res.json({ msg: "Failed to add Feed" }, 400)
+        } else {
+            res.json({ msg: 'Feed Added Successfully' }, 200)
+
+        }
+    });
+})
+
+
+// /List of Fees
+router.get("/feeds", isLoggedIn, function (req, res, next) {
+
+    Feed.find({}, function (err, feeds) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(feeds);
+        }
+    })
+})
+
 
 
 //Middleware for login or not

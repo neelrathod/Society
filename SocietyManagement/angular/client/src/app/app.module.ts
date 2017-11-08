@@ -21,8 +21,11 @@ import { MyvehicleComponent } from './vehicles/myvehicle/myvehicle.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FeedComponent } from './feed/feed.component';
+import { FeedListComponent } from "./feed/feedList/feedList.component";
+
 import { AuthGuard } from './services/auth-guard.service';
 import { EditComponent } from './vehicles/edit/edit.component';
+import { FeedService } from './services/feed.service';
 
 
 
@@ -41,6 +44,7 @@ import { EditComponent } from './vehicles/edit/edit.component';
     FileSelectDirective,
     PageNotFoundComponent,
     FeedComponent,
+    FeedListComponent,
     EditComponent,
 
 
@@ -53,7 +57,7 @@ import { EditComponent } from './vehicles/edit/edit.component';
     AppRoutingModule
 
   ],
-  providers: [UserService, AdminService, VehicleService, AuthGuard],
+  providers: [UserService, AdminService, VehicleService, AuthGuard, FeedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

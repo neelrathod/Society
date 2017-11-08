@@ -4,11 +4,6 @@ import { Http, Headers } from "@angular/http";
 @Injectable()
 export class UserService {
 
-  emailToken = "";
-  userID = "";
-
-
-
   constructor(private http: Http) { }
 
   //Add Users
@@ -21,9 +16,6 @@ export class UserService {
     return this.http.post("http://localhost:4000/api/login", login)
   }
 
-  getUserid(id) {
-    this.userID = id;
-  }
 
 
 }

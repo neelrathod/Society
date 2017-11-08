@@ -1,1 +1,41 @@
-<h1 align="center">Feeds work</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+            <h1 align="center" style="color : skyblue" class="page-header">Add Your Feed..!!</h1>
+            <form [formGroup]="feedForm" (ngSubmit)="onPost()">
+                <label for="feed">Feed</label>
+                <div class="form-group">
+                    <textarea placeholder="Add post..." formControlName="feed" class="form-control" cols="30" rows="10"></textarea>
+                </div>
+
+                <label for="feedImg">Image</label>
+                <div class="form-group">
+                    <input type="feedImg" placeholder="Image url..." formControlName="feedImg" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Post">
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary" type="button" (click)="allFeeds()" routerLink="/header/feed/list" value="Show Posts">Show Posts</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <div *ngFor="let feed of feeds">
+            <div>
+                <img src="{{feed.feedImg}}">
+            </div>
+            <div class="col-md-3">
+                {{ feed.feed}}
+            </div>
+
+            <br>
+            <br>
+        </div>
+    </div>

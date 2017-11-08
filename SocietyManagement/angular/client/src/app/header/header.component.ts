@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('adminAccess');
     localStorage.removeItem('emailToken');
     localStorage.removeItem('accesstoken');
+    localStorage.removeItem('vehicleID');
+    
     this.router.navigate(['/'], { relativeTo: this.route })
   }
 }

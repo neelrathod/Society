@@ -11,16 +11,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ListComponent implements OnInit {
 
-
-
   vehicles = [];
   constructor(private vService: VehicleService) {
 
   }
-
-
-  searchForm: FormGroup;
-  ngOnInit() { }
+  ngOnInit() { 
+    this.allVehicles()
+  }
 
   allVehicles() {
     this.vService.getVehicles().subscribe((res) => {

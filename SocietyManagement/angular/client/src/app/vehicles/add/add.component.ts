@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { VehicleService } from '../../services/vehicle.service';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,9 @@ export class AddComponent implements OnInit {
   file;
   addvehicleForm: FormGroup
 
-  constructor(private vService: VehicleService) { }
+  constructor(private vService: VehicleService,
+              private router: Router,
+            private route : ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -39,6 +42,7 @@ export class AddComponent implements OnInit {
     this.vService.addVehicle(formData).subscribe((response) => {
       this.addvehicleForm.reset()
       alert("Vehicle added Successfully")
+      this.router.navigate(['/header/myvehicle/:id'], { relativeTo: this.route })
     }), (error) => {
       alert("Something Went Wrong")
     }

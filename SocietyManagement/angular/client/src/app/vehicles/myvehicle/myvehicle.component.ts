@@ -11,15 +11,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class MyvehicleComponent implements OnInit {
   vehicles = [];
 
-  myVehicleID() {
-    this.userService.getUserid
-  }
+  
   constructor(private vService: VehicleService,
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService) { }
 
   ngOnInit() {
+    this.myVehicle()
   }
 
   myVehicle() {
@@ -30,20 +29,24 @@ export class MyvehicleComponent implements OnInit {
   }
 
   onEditVehicle(id) {
-    this.router.navigate(['/header/edit/', id], { relativeTo: this.route });
+    this.router.navigate(['/header/edit/', id ], { relativeTo: this.route });
   }
 
   onDeleteVehicle(id: any) {
-    var vehicles = this.vehicles;
-    this.vService.deleteVehicle(id)
-      .subscribe(data => {
-        if (data.n === 1) {
-          for (var i = 0; i < vehicles.length; i++) {
-            if (vehicles[i]._id == id) {
-              vehicles.splice(i, 1);
+    var result = confirm("Are you sure want to Delete ?");
+    if(result){
+      var vehicles = this.vehicles;
+      this.vService.deleteVehicle(id)
+        .subscribe(data => {
+          if (data.n === 1) {
+            for (var i = 0; i < vehicles.length; i++) {
+              if (vehicles[i]._id == id) {
+                vehicles.splice(i, 1);
+              }
             }
           }
-        }
-      })
-  }
+        })
+    }
+    }
+    
 }

@@ -5,14 +5,9 @@ import { AdminService } from './admin.service';
 
 @Injectable()
 export class VehicleService {
-    id = ""
-    userID = ""
+    id;
 
     constructor(private http: Http, private adminService: AdminService) { }
-
-
-
-
 
     getVehicles() {
         return this.http.get("http://localhost:4000/api/vehicles", { headers: this.adminService.headers });
@@ -35,29 +30,14 @@ export class VehicleService {
             .map(res => res.json());
     }
 
-    editVehicle(data) {
+    // Edit Vehicle
+    editVehicle(id, data) {
+        return this.http.put("http://localhost:4000/api/vehicle/edit/" + id, data, { headers: this.adminService.headers })
 
-        console.log(data);
-        var id = this.sendVehicleID()
-        console.log(this.vehicleID(id))
-
-        return this.http.put("http://localhost:4000/api/vehicle/edit", data, { headers: this.adminService.headers })
-            .map(res => res.json());
     }
 
-
-    getVehiclebyid(id) {
-        return this.http.get("http://localhost:4000/api/vehicle/" + id, { headers: this.adminService.headers })
-            .map(res => res.json());
-    }
-
-    vehicleID(id) {
-        id = this.id
-    }
-
-
-    sendVehicleID() {
-        return this.id
+    getEditVehicleInfo(id) {
+        return this.http.get("http://localhost:4000/api/vehicle/editdata/" + id, { headers: this.adminService.headers })
     }
 
 }

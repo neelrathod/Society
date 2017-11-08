@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
 
       window.localStorage.setItem('user_id', userid);
       window.localStorage.setItem('adminAccess', adminAccess);
-      this.service.getUserid(res.json().data._id);
       this.userToken = res.json().data.emailToken;
       if (res.status == 200) {
         this.setAccessToken();

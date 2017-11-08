@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { FeedComponent } from "./feed/feed.component";
 import { AuthGuard } from "./services/auth-guard.service";
 import { EditComponent } from "./vehicles/edit/edit.component";
+import { FeedListComponent } from "./feed/feedList/feedList.component";
 
 
 
@@ -26,12 +27,13 @@ const appRoutes: Routes = [
             { path: 'vehicles', component: VehiclesComponent },
             { path: 'myvehicle/:id', component: MyvehicleComponent },
             { path: 'edit/:id', component: EditComponent },
-            { path: 'feeds', component: FeedComponent }
+            { path: 'feeds', component: FeedComponent },
+            {path : 'feed/list', component: FeedListComponent}
+            
         ]
     },
 
     { path: '**', component: PageNotFoundComponent }
-
 
 
 
