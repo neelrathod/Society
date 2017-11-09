@@ -2,7 +2,8 @@ var mongoose = require("mongoose");
 
 var vehicleSchema = new mongoose.Schema({
     userId: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
     type: {
         type: String

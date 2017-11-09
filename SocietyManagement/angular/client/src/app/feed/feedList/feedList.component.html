@@ -1,17 +1,24 @@
-<div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-</div>
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
             <div class="container">
                 <div *ngFor="let feed of feeds">
                     <div>
-                        <img src="{{feed.feedImg}}">
+                        <img  width="300" src="{{ feed.feedImg }}">
                     </div>
                     <div>
                         {{ feed.feed}}
                     </div>
+                    <form [formGroup]="feedDataForm">
+                        <div class="formGroup">
+                            <input type="text" class="formControl" formControlName="comment">
+
+                            <button class="glyphicon glyphicon-thumbs-up btn btn-primary">Like</button>
+                            <button class="btn btn-primary" (click)="onComment()">Comment</button>
+                        </div>
+                    </form>
 
                     <br>
                     <br>
@@ -19,3 +26,4 @@
             </div>
         </div>
     </div>
+</div>

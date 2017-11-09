@@ -52,14 +52,18 @@ export class EditComponent implements OnInit {
     this.vService.editVehicle(this.vehicleID, this.editVehicleForm.value).subscribe((response) => {
       alert("Vehicle Edited Successfully")
       this.router.navigate(['/header/myvehicle/:id'], { relativeTo: this.route })
-      }), (error) => {
+    }), (error) => {
       alert("Something Went Wrong")
     }
 
   }
 
   cancel() {
-    this.router.navigate(['/header/myvehicle/:id'], { relativeTo: this.route });
+    
+    var result = confirm("Are you sure want to go back ?")
+    if (result) {
+      this.router.navigate(['/header/myvehicle/:id'], { relativeTo: this.route });
+    }
   }
 
 }

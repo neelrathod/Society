@@ -27,7 +27,7 @@ export class AddComponent implements OnInit {
       'userId': new FormControl(userid),
       'type': new FormControl(null, Validators.required),
       'reg': new FormControl(null, Validators.required),
-      'pic': new FormControl(),
+      'pic': new FormControl(null),
       'color': new FormControl(null, Validators.required)
     })
   }
@@ -50,6 +50,12 @@ export class AddComponent implements OnInit {
 
   uploadvehicle(vehicleimg) {
     this.file = vehicleimg.srcElement.files.item(0);
+  }
+  onCancel(){
+    var result = confirm("Don't want to add vehicle  ?")
+    if(result){
+      this.router.navigate(['/header/myvehicle/:id'], { relativeTo: this.route })
+    }
   }
 
 }

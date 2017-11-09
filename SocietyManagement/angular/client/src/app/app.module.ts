@@ -26,6 +26,7 @@ import { FeedListComponent } from "./feed/feedList/feedList.component";
 import { AuthGuard } from './services/auth-guard.service';
 import { EditComponent } from './vehicles/edit/edit.component';
 import { FeedService } from './services/feed.service';
+import { LogoutComponent } from './user/logout/logout.component';
 
 
 
@@ -46,6 +47,7 @@ import { FeedService } from './services/feed.service';
     FeedComponent,
     FeedListComponent,
     EditComponent,
+    LogoutComponent,
 
 
 

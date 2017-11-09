@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-            <h1 align="center" style="color : skyblue" class="page-header">Add Your Feed..!!</h1>
+            <h1 align="center" class="page-header">Add Your Feed..!!</h1>
             <form [formGroup]="feedForm" (ngSubmit)="onPost()">
                 <label for="feed">Feed</label>
                 <div class="form-group">
@@ -10,7 +10,7 @@
 
                 <label for="feedImg">Image</label>
                 <div class="form-group">
-                    <input type="feedImg" placeholder="Image url..." formControlName="feedImg" class="form-control">
+                    <input type="file" accept="image/x-png,image/gif,image/jpeg" (change)="uploadFeed($event)" formControlName="feedImg" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -24,18 +24,3 @@
         </div>
     </div>
 
-    <hr>
-
-    <div class="container">
-        <div *ngFor="let feed of feeds">
-            <div>
-                <img src="{{feed.feedImg}}">
-            </div>
-            <div class="col-md-3">
-                {{ feed.feed}}
-            </div>
-
-            <br>
-            <br>
-        </div>
-    </div>

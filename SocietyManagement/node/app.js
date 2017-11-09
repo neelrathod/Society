@@ -3,9 +3,9 @@ var express = require('express'),
     mongoose = require('mongoose'),
     cors = require('cors'),
     path = require('path'),
-    multer = require('multer'),
-    DIR = './uploads/',
-    upload = multer({ dest: DIR }).single('photo')
+    multer = require('multer')
+    // DIR = './uploads/',
+    // upload = multer({ dest: DIR }).single('photo')
 
 
 
@@ -35,6 +35,8 @@ mongoose.connection.on("error", function (err) {
 
 });
 
+//publid directory path
+app.use(express.static("public"));
 //Adding Middle-ware - cors => It's used for client side port 
 app.use(cors());
 

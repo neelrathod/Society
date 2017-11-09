@@ -12,8 +12,12 @@ export class FeedService {
     addFeed(newFeed: any) {
         return this.http.post("http://localhost:4000/api/addFeed", newFeed, { headers: this.adminService.headers });
     }
-
+    
     listFeeds() {
         return this.http.get("http://localhost:4000/api/feeds", { headers: this.adminService.headers });
+    }
+
+    addComment(newComment : any){
+       return this.http.post("http://localhost:4000/api/addComment", newComment, { headers: this.adminService.headers });
     }
 }

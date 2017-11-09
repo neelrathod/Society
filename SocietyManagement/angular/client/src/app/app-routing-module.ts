@@ -13,6 +13,7 @@ import { FeedComponent } from "./feed/feed.component";
 import { AuthGuard } from "./services/auth-guard.service";
 import { EditComponent } from "./vehicles/edit/edit.component";
 import { FeedListComponent } from "./feed/feedList/feedList.component";
+import { LogoutComponent } from "./user/logout/logout.component";
 
 
 
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
             { path: 'myvehicle/:id', component: MyvehicleComponent },
             { path: 'edit/:id', component: EditComponent },
             { path: 'feeds', component: FeedComponent },
-            {path : 'feed/list', component: FeedListComponent}
+            {path : 'feed/list', component: FeedListComponent},
+            {path: 'logout', component: LogoutComponent}
             
         ]
     },
