@@ -17,7 +17,8 @@ export class FeedService {
         return this.http.get("http://localhost:4000/api/feeds", { headers: this.adminService.headers });
     }
 
-    addComment(newComment : any){
-       return this.http.post("http://localhost:4000/api/addComment", newComment, { headers: this.adminService.headers });
+    addComment(newComment : any, id){
+        console.log(newComment)
+       return this.http.post("http://localhost:4000/api/addComment/" + id, newComment, { headers: this.adminService.headers });
     }
 }

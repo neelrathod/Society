@@ -15,18 +15,17 @@ var feedSchema = new mongoose.Schema({
   feedImg: {
     type: String
   },
+  
   comment: [{
+
     comment: {
       type: String
     },
-    userId:{
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
-    },
-    feedId:{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Feed"
     }
+    
 
 
   }]

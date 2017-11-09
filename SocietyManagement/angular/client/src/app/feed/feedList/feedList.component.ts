@@ -19,8 +19,6 @@ export class FeedListComponent implements OnInit {
   ngOnInit() {
     
     this.allFeeds()
-    // this.feedID = this.route.snapshot.params['id'];
-    // console.log(this.feedID+"Feedid")
     this.feedDataForm = new FormGroup({
       'comment': new FormControl(null, Validators.required)
     })
@@ -33,11 +31,12 @@ export class FeedListComponent implements OnInit {
     })
   }
 
-  onComment(){
-  
-      this.feedService.addComment(this.feedDataForm.value).subscribe((res)=>{
-        this.feedDataForm.reset()
+  onComment(id){
+      console.log(id)
+      this.feedService.addComment(this.feedDataForm.value,id).subscribe((res)=>{
         alert("Comment Added Successfully")
+        this.feedDataForm.reset()
+        
         // this.router.navigate(['/header/feed/list'], { relativeTo: this.route });
         
       }), (error) => {

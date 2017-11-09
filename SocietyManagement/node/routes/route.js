@@ -381,11 +381,13 @@ router.get("/feeds", isLoggedIn, function (req, res, next) {
 });
 
 // Add Comment
-router.post("/addComment", isLoggedIn, function (req, res) {
+router.post("/addComment/:id", isLoggedIn, function (req, res) {
     var feedId = req.params.id
-    var comment = { comment: req.body.comment, userId: req.body.userId }
+    var commentData = { comment: req.body.comment, userId: req.body.userId }
 
-    Feed.findOneAndUpdate({ _id: feedId }, { $push: { comment: comment } }, function (err, res) {
+console.log(feedId)
+
+    Feed.update({ _id: feedId }, { $push: { comment: commentData } }, function (err, res) {
         if (err) {
             // res.json({ msg: "Failed to add Comment" }, 400)
             console.log("Failed to add Comment")
