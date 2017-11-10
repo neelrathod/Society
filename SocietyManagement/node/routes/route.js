@@ -1,9 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/user");
-var Vehicle = require("../models/vehicle")
-var Com = require("../models/comment")
-var Feed = require("../models/feed")
+var Vehicle = require("../models/vehicle");
+var Feed = require("../models/feed");
 var jwt = require('jsonwebtoken');
 var md5 = require('md5');
 
@@ -111,7 +110,10 @@ router.post("/login", function (req, res, next) {
         if (err) {
             res.json({ msg: 'Failed to Login' }, 400);
         } else {
-            if (users.email !== null && users.password !== null) {
+            if (users.email === null && users.password === null) {
+                res.json({ msg: 'Failed to Login' }, 400);
+
+            } else {
                 if (users.email == email && users.password == password) {
                     res.json({ msg: 'Login Successfully', data: users }, 200);
                 } else {
@@ -202,7 +204,6 @@ router.post("/vehicle", isLoggedIn, function (req, res, next) {
             if (req.file) {
                 var mimetype = req.file.mimetype
                 vpath = req.file.filename
-                // vpath = req.file.filename + "." + mimetype.substr(6, (mimetype.length - 1))
             }
             var addvehicleForm = JSON.parse(req.body.addvehicleForm)
 
@@ -356,18 +357,14 @@ router.post("/addFeed", isLoggedIn, function (req, res) {
             });
 
         }
-
-
     })
-})
-
-
+});
 
 
 // /List of Feeds
 router.get("/feeds", isLoggedIn, function (req, res, next) {
 
-    Feed.find({}, function (err, feeds) {
+    Feed.find({}, {}, { sort: { '_id': -1 } }).populate("comment like.userId", "first_name").exec(function (err, feeds) {
         if (err) {
             console.log(err);
         } else {
@@ -381,41 +378,40 @@ router.get("/feeds", isLoggedIn, function (req, res, next) {
 });
 
 // Add Comment
-router.post("/addComment/:id", isLoggedIn, function (req, res) {
+router.post("/addComment/:id", isLoggedIn, function (req, res, next) {
     var feedId = req.params.id
     var commentData = { comment: req.body.comment, userId: req.body.userId }
 
-console.log(feedId)
+    console.log(feedId)
 
-    Feed.update({ _id: feedId }, { $push: { comment: commentData } }, function (err, res) {
+    Feed.update({ _id: feedId }, { $push: { comment: commentData } }, function (err, comment) {
         if (err) {
             // res.json({ msg: "Failed to add Comment" }, 400)
             console.log("Failed to add Comment")
         } else {
-            // res.json({ msg: 'Comment Added Successfully' }, 200)
+            res.json({ msg: 'Comment Added Successfully' }, 200)
             console.log("Comment Added Successfully")
         }
     })
 });
 
-// router.post("/addComment", isLoggedIn, function (req, res) {
-//     var userId = req.body.userId;
-//     var comment = req.body.comment;
 
-//     var newComment = {
-//         userId: userId,
-//         comment: comment
-//     }
+// Add Like
+router.post("/addLike/:id", isLoggedIn, function (req, res, next) {
+    var feedId = req.params.id
+    var likeData = { userId: req.body.userId }
 
 
-//     Com.create(newComment, function (err, res) {
-//         if (err) {
-//             console.log("Something went wrong")
-//         } else {
-//             console.log("Comment added successfully")
-//         }
-//     })
-// });
+    Feed.update({ _id: feedId }, { $push: { like: likeData } }, function (err, like) {
+        if (err) {
+            res.json({ msg: "Failed to add Comment" }, 400)
+            console.log("Failed to add Like")
+        } else {
+            res.json({ msg: 'Like Added Successfully' }, 200)
+            console.log("Like Added Successfully")
+        }
+    })
+});
 
 
 //Middleware for login or not

@@ -15,7 +15,7 @@ var feedSchema = new mongoose.Schema({
   feedImg: {
     type: String
   },
-  
+
   comment: [{
 
     comment: {
@@ -25,9 +25,16 @@ var feedSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     }
-    
 
 
+
+  }],
+
+  like: [{
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }
   }]
 });
 

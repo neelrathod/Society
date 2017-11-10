@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.adminForm = new FormGroup({
       'month': new FormControl(8),
-      'flat_block': new FormControl("A")
+      'flat_block': new FormControl("B")
 
     })
   }

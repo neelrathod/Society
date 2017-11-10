@@ -21,4 +21,10 @@ export class FeedService {
         console.log(newComment)
        return this.http.post("http://localhost:4000/api/addComment/" + id, newComment, { headers: this.adminService.headers });
     }
+
+    addLike(id){
+        return this.http.post("http://localhost:4000/api/addLike/" + id, {}, { headers: this.adminService.headers });
+        
+    }
+
 }

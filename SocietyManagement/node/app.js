@@ -4,8 +4,8 @@ var express = require('express'),
     cors = require('cors'),
     path = require('path'),
     multer = require('multer')
-    // DIR = './uploads/',
-    // upload = multer({ dest: DIR }).single('photo')
+// DIR = './uploads/',
+// upload = multer({ dest: DIR }).single('photo')
 
 
 

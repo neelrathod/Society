@@ -11,37 +11,53 @@ import { Router, ActivatedRoute, Params, ActivatedRouteSnapshot } from '@angular
 export class FeedListComponent implements OnInit {
 
   feeds = [];
-  feedDataForm : FormGroup
+  feedDataForm: FormGroup;
   feedID: string
-  
-  constructor(private feedService : FeedService, private router: Router, private route : ActivatedRoute) { }
+  submitClicked = false;
+
+  constructor(private feedService: FeedService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    
-    this.allFeeds()
+
+
     this.feedDataForm = new FormGroup({
       'comment': new FormControl(null, Validators.required)
     })
+
+    this.allFeeds()
+
   }
 
-   
+
   allFeeds() {
     this.feedService.listFeeds().subscribe((res) => {
       this.feeds = res.json();
+      console.log(this.feeds)
     })
   }
 
-  onComment(id){
-      console.log(id)
-      this.feedService.addComment(this.feedDataForm.value,id).subscribe((res)=>{
-        alert("Comment Added Successfully")
-        this.feedDataForm.reset()
-        
-        // this.router.navigate(['/header/feed/list'], { relativeTo: this.route });
-        
-      }), (error) => {
-        alert("Something Went Wrong")
-      } 
+  onComment(id) {
+    console.log(id)
+    this.feedService.addComment(this.feedDataForm.value, id).subscribe((res) => {
+      this.feedDataForm.reset()
+      this.allFeeds()
+    }), (error) => {
+      alert("Something Went Wrong")
     }
-  
+  }
+
+  onLike(id) {
+    this.feedService.addLike(id).subscribe((res) => {
+      console.log("Like added")
+      console.log(id)
+      this.submitClicked = true;
+      this.allFeeds()
+
+    }), (error) => {
+      alert("Something Went Wrong")
+
+    }
+  }
+
+
 }

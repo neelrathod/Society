@@ -6,20 +6,38 @@
             <div class="container">
                 <div *ngFor="let feed of feeds">
                     <div>
-                        <img  width="300" src="{{ feed.feedImg }}">
+                        <img width="300" src="{{ feed.feedImg }}">
                     </div>
                     <div>
-                        {{ feed.feed}}
+                        <h4>
+                            <b>{{ feed.feed }}</b>
+                        </h4>
                     </div>
                     <form [formGroup]="feedDataForm">
                         <div class="formGroup">
                             <input type="text" class="formControl" formControlName="comment">
 
-                            <button class="glyphicon glyphicon-thumbs-up btn btn-primary">Like</button>
+                            <button type="button" class="glyphicon glyphicon-thumbs-up btn btn-primary" [disabled]="submitClicked" (click)="onLike(feed._id)"></button>
                             <button class="btn btn-primary" (click)="onComment(feed._id)">Comment</button>
                         </div>
                     </form>
+                    <hr>
 
+                    <div *ngFor="let feed of feed.comment">
+                        <div>
+                            <h5>
+                                <b>{{ feed.comment}}</b>
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div *ngFor="let like of feed.like">
+                        <div>
+                            <h5>
+                                <b>{{ like.userId.first_name }}</b>
+                            </h5>
+                        </div>
+                    </div>
                     <br>
                     <br>
                 </div>
